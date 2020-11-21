@@ -1,0 +1,39 @@
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+https://swapi.dev/api/planets/
+
+https://pokeapi.co/api/v2/pokemon
+
+https://developer.nps.gov/api/v1/parks?limit=497?&api_key=RWsguX4orfDsVSGEqeLVa6Y3UUiQpwdLd5BXcN7C
+
+const jokes = document.querySelector('#jokes');
+
+const btn = document.querySelector('button');
+
+
+
+const addNewJoke = async () => {
+    const jokeText = await getDadJoke();
+    const newLI = document.createElement('li');
+    newLI.append(jokeText);
+    jokes.append(newLI);
+}
+
+
+
+const getDadJoke = async () => {
+    try {
+         //here we specify, based on doc specific to the api
+        const config = { headers: { Accept: 'application/json' } }
+        //this config is our specified query string
+        const res = await axios.get('https://icanhazdadjoke.com/', config);
+        return res.data.joke;
+    } catch(error) {
+        return 'NO JOKES AVAILABLE, SORRY!'
+    }
+   
+
+}
+// getDadJoke();
+
+btn.addEventListener('click', addNewJoke);
